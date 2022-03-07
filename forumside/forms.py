@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField,TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField,TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from forumside.models import User
+from forumside import routes
+from forumside.models import User, Rute
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',  validators=[DataRequired(), Length(min=3, max=20)])
@@ -50,13 +52,17 @@ class SubmitForm(FlaskForm):
     
     
 class RuteForm(FlaskForm):
+    name = StringField('Rute Navn', validators=[DataRequired()])
     route = StringField('iFrame link', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+def ruter():
+    return Rute.query
 
 class NyEventForm(FlaskForm):
     title = StringField('Overskrift', validators=[DataRequired()], render_kw={'placeholder': 'Overskrift'})
     date = DateField('Dato')
-    rute = SelectField('Rute Valg')
+    rute = QuerySelectField('Rute Valg', query_factory=ruter, allow_blank=True)
     content = TextAreaField('Beskrivelse', validators=[DataRequired()])
     submit = SubmitField("Opret")
+    

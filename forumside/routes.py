@@ -78,7 +78,7 @@ def nyruter():
     form = RuteForm()
     routes = Rute.query.order_by(Rute.id)
     if form.validate_on_submit():
-        ruter = Rute(route=form.route.data)
+        ruter = Rute(route=form.route.data, name=form.name.data)
         db.session.add(ruter)
         db.session.commit()
         return redirect(url_for('nyruter'))
@@ -108,3 +108,5 @@ def testhome():
 def event(event_id):
     post = NyEvent.query.get_or_404(event_id)
     return render_template('event.html', post=post)
+
+
