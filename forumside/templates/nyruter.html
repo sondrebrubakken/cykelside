@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}{% block content %}
+<form class="form-group" , method="POST">
+  {{form.hidden_tag()}}
+  <fieldset class="border-bottom mb-4">
+    <legend class="border-bottom mb-4">Opret ny rute</legend>
+    <div class="form-group">
+      {{ form.route.label(class="form-control-label") }} {{
+      form.route(class="form-control form-control-lg") }}
+    </div>
+  </fieldset>
+  <div class="form-group">{{ form.submit(class="btn btn-outline-info") }}</div>
+</form>
+
+{% for route in routes%} {{ route.route|safe }} {% endfor %} {% endblock %}

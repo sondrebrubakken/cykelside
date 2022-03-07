@@ -1,0 +1,39 @@
+{% extends "layout.html" %} {% block content %}
+<form class="">
+  <fieldset class="border-bottom mb-4">
+    <legend class="border-bottom mb-4">Bliv Medlem</legend>
+    <div class="form-group">
+      {{ form.navn.label(class="form-control-label") }} {{
+      form.navn(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.email.label(class="form-control-label") }} {{
+      form.email(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.addresse.label(class="form-control-label") }} {{
+      form.addresse(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.postnummer.label(class="form-control-label") }} {{
+      form.postnummer(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.telefon.label(class="form-control-label") }} {{
+      form.telefon(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.fdato.label(class="form-control-label") }} {{
+      form.fdato(class="form-control form-control-lg") }}
+    </div>
+    <div class="form-group">
+      {{ form.besked.label(class="form-control-label") }} {{
+      form.besked(class="form-control form-control-lg") }}
+    </div>
+  </fieldset>
+  <div class="form-group">
+    {{ form.submit(class="btn btn-outline-info") }}
+  </div>
+</form>
+
+{% endblock content %}
