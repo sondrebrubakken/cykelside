@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField,TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField,TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from forumside.models import User
 
@@ -52,3 +52,11 @@ class SubmitForm(FlaskForm):
 class RuteForm(FlaskForm):
     route = StringField('iFrame link', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class NyEventForm(FlaskForm):
+    title = StringField('Overskrift', validators=[DataRequired()], render_kw={'placeholder': 'Overskrift'})
+    date = DateField('Dato')
+    rute = SelectField('Rute Valg')
+    content = TextAreaField('Beskrivelse', validators=[DataRequired()])
+    submit = SubmitField("Opret")

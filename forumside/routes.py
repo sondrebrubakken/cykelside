@@ -1,8 +1,9 @@
 from turtle import title
+from forumside.forms import NyEventForm
 from flask import render_template, url_for, flash,redirect, request
 from forumside import app, db, bcrypt
-from forumside.forms import RegistrationForm, LoginForm, MedlemForm,SubmitForm, RuteForm
-from forumside.models import User, Post, Rute
+from forumside.forms import RegistrationForm, LoginForm, MedlemForm,SubmitForm, RuteForm, NyEventForm
+from forumside.models import NyEvent, User, Post, Rute
 from flask_login import login_user, current_user, logout_user, login_required
 
 events = [
@@ -88,3 +89,22 @@ def medlem():
     form = MedlemForm()
     return render_template('medlem.html', title="Bliv Medlem", form=form)
 
+@app.route('/nyevent', methods=['POST','GET'])
+def nyevent():
+    form = NyEventForm()
+    if form.validate_on_submit():
+        post = NyEvent(title=form.title.data, content=form.content.data, event_date=form.date.data, rute=form.rute.data, bruger=current_user)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('testhome'))
+    return render_template('nyevent.html', title='Ny Event', form=form)
+
+@app.route('/testhome')
+def testhome():
+    posts = NyEvent.query.order_by(NyEvent.event_date.desc())
+    return render_template('testhome.html', posts=posts)
+
+@app.route("/event/<int:event_id>")
+def event(event_id):
+    post = NyEvent.query.get_or_404(event_id)
+    return render_template('event.html', post=post)

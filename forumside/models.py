@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    nyevent = db.relationship('NyEvent', backref='bruger', lazy=True)
     
     def __repr__(self):
         return f"User('{self.username}', '{self.email}','{self.image_file}')"
@@ -37,3 +38,11 @@ class Rute(db.Model):
     
     def __repr__(self):
         return f"Rute('{self.route}')"
+
+class NyEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    event_date = db.Column(db.Date)
+    rute = db.Column(db.String(255))
+    user_id= db.Column(db.Integer,db.ForeignKey("user.id"),nullable=False)
