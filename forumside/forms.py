@@ -44,11 +44,7 @@ class MedlemForm(FlaskForm):
 
 
 
-class SubmitForm(FlaskForm):
-    jylland = SubmitField('Jyllandsgade')
-    badehus = SubmitField('Badehus vej')
-    jomfru = SubmitField('Jomfru Ane Gade')
-    pizza = SubmitField('Pizza')
+
     
     
 class RuteForm(FlaskForm):
@@ -59,10 +55,11 @@ class RuteForm(FlaskForm):
 def ruter():
     return Rute.query
 
+
 class NyEventForm(FlaskForm):
     title = StringField('Overskrift', validators=[DataRequired()], render_kw={'placeholder': 'Overskrift'})
     date = DateField('Dato')
-    rute = QuerySelectField('Rute Valg', query_factory=ruter, allow_blank=True)
+    rute = QuerySelectField('Rute Valg', query_factory=ruter, allow_blank=True, get_label='name')
     content = TextAreaField('Beskrivelse', validators=[DataRequired()])
     submit = SubmitField("Opret")
     

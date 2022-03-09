@@ -2,7 +2,7 @@ from turtle import title
 from forumside.forms import NyEventForm
 from flask import render_template, url_for, flash,redirect, request
 from forumside import app, db, bcrypt
-from forumside.forms import RegistrationForm, LoginForm, MedlemForm,SubmitForm, RuteForm, NyEventForm
+from forumside.forms import RegistrationForm, LoginForm, MedlemForm, RuteForm, NyEventForm
 from forumside.models import NyEvent, User, Post, Rute
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -70,8 +70,8 @@ def account():
 
 @app.route('/ruter', methods=['POST', 'GET'])
 def ruter():
-    adr = SubmitForm()
-    return render_template('ruter.html', adr=adr)
+    knap = SubmitForm()
+    return render_template('ruter.html', knap=knap)
 
 @app.route('/nyruter', methods=['POST', 'GET'])
 def nyruter():

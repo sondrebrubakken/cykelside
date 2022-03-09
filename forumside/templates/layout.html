@@ -10,7 +10,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename="main.css")}}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='main.css')}}"
+    />
     {% if title %}
     <title>Forum - {{title}}</title>
     {% else %}
@@ -35,20 +39,37 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{url_for('home')}}">Forside</a>
+              <a class="nav-item nav-link" href="{{url_for('home')}}"
+                >Forside</a
+              >
               <a class="nav-item nav-link" href="{{url_for('about')}}">Om Os</a>
               <a class="nav-item nav-link" href="{{url_for('ruter')}}">Ruter</a>
-              <a class="nav-item nav-link" href="{{url_for('nyruter')}}">Opret ny Rute</a>
-              <a class="nav-item nav-link" href="{{url_for('medlem')}}">Bliv Medlem</a>
+              <a class="nav-item nav-link" href="{{url_for('medlem')}}"
+                >Bliv Medlem</a
+              >
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{url_for('nyruter')}}"
+                >Opret rute</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('testhome')}}"
+                >Events</a
+              >
+              {% endif %}
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-              <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
-              <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
+              <a class="nav-item nav-link" href="{{url_for('logout')}}"
+                >Logout</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('account')}}"
+                >Account</a
+              >
               {% else %}
               <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
-              <a class="nav-item nav-link" href="{{url_for('register')}}">Register</a>
+              <a class="nav-item nav-link" href="{{url_for('register')}}"
+                >Register</a
+              >
               {% endif %}
             </div>
           </div>
@@ -56,25 +77,18 @@
       </nav>
     </header>
     <main role="main" class="container">
-        <div class="row">
-          <div class="col-md-8">
-              {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-              {% for category, message in messages%}
-              <div class="alert alert-{{ category }}">
-                  {{message}}
-
-              </div>
-              {% endfor%}
-              {% endif %}
-              {% endwith %}
-            {% block content %}{% endblock %}
-          </div>
-
-
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages%}
+          <div class="alert alert-{{ category }}">{{message}}</div>
+          {% endfor%} {% endif %} {% endwith %} {% block content %}{% endblock
+          %}
         </div>
-      </main>
-  
+        {% block div %}{% endblock %}
+      </div>
+    </main>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

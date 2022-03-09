@@ -38,7 +38,7 @@ class Rute(db.Model):
     
     
     def __repr__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.route)
 
 class NyEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
